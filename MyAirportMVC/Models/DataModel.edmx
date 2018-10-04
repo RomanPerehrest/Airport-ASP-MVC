@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AeroportModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Flight">
+          <Key>
+            <PropertyRef Name="Flight_ID" />
+          </Key>
+          <Property Name="Flight_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FlightNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Destination" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="Departure_DateTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="Arrival_DateTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="Airline" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Terminal" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassSeats" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gate" Type="int" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FlightInfo">
+          <Key>
+            <PropertyRef Name="Flight_Info_ID" />
+          </Key>
+          <Property Name="Flight_Info_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Flight_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Way" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderFlight">
+          <Key>
+            <PropertyRef Name="OrderFlight_ID" />
+            <PropertyRef Name="Passanger_Info_ID" />
+            <PropertyRef Name="Flight_Info_ID" />
+          </Key>
+          <Property Name="OrderFlight_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Passanger_Info_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Flight_Info_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateTimeOrder" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Passanger">
+          <Key>
+            <PropertyRef Name="Passanger_ID" />
+          </Key>
+          <Property Name="Passanger_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nationality" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PassportID" Type="int" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="Sex" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_FlightInfo_Flight">
+          <End Role="Flight" Type="Self.Flight" Multiplicity="1" />
+          <End Role="FlightInfo" Type="Self.FlightInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flight">
+              <PropertyRef Name="Flight_ID" />
+            </Principal>
+            <Dependent Role="FlightInfo">
+              <PropertyRef Name="Flight_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderFlight_Flight">
+          <End Role="Flight" Type="Self.Flight" Multiplicity="1" />
+          <End Role="OrderFlight" Type="Self.OrderFlight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flight">
+              <PropertyRef Name="Flight_ID" />
+            </Principal>
+            <Dependent Role="OrderFlight">
+              <PropertyRef Name="Flight_Info_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PassangerFlight_Passanger1">
+          <End Role="Passanger" Type="Self.Passanger" Multiplicity="1" />
+          <End Role="OrderFlight" Type="Self.OrderFlight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Passanger">
+              <PropertyRef Name="Passanger_ID" />
+            </Principal>
+            <Dependent Role="OrderFlight">
+              <PropertyRef Name="Passanger_Info_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AeroportModelStoreContainer">
+          <EntitySet Name="Flight" EntityType="Self.Flight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FlightInfo" EntityType="Self.FlightInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderFlight" EntityType="Self.OrderFlight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Passanger" EntityType="Self.Passanger" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_FlightInfo_Flight" Association="Self.FK_FlightInfo_Flight">
+            <End Role="Flight" EntitySet="Flight" />
+            <End Role="FlightInfo" EntitySet="FlightInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderFlight_Flight" Association="Self.FK_OrderFlight_Flight">
+            <End Role="Flight" EntitySet="Flight" />
+            <End Role="OrderFlight" EntitySet="OrderFlight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PassangerFlight_Passanger1" Association="Self.FK_PassangerFlight_Passanger1">
+            <End Role="Passanger" EntitySet="Passanger" />
+            <End Role="OrderFlight" EntitySet="OrderFlight" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AeroportModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Flight">
+          <Key>
+            <PropertyRef Name="Flight_ID" />
+          </Key>
+          <Property Name="Flight_ID" Type="Guid" Nullable="false" />
+          <Property Name="FlightNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Destination" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Departure_DateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Arrival_DateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Airline" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Terminal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassSeats" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gate" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FlightInfo" Relationship="Self.FK_FlightInfo_Flight" FromRole="Flight" ToRole="FlightInfo" />
+          <NavigationProperty Name="OrderFlight" Relationship="Self.FK_OrderFlight_Flight" FromRole="Flight" ToRole="OrderFlight" />
+        </EntityType>
+        <EntityType Name="FlightInfo">
+          <Key>
+            <PropertyRef Name="Flight_Info_ID" />
+          </Key>
+          <Property Name="Flight_Info_ID" Type="Guid" Nullable="false" />
+          <Property Name="Flight_ID" Type="Guid" Nullable="false" />
+          <Property Name="Way" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Flight" Relationship="Self.FK_FlightInfo_Flight" FromRole="FlightInfo" ToRole="Flight" />
+        </EntityType>
+        <EntityType Name="OrderFlight">
+          <Key>
+            <PropertyRef Name="OrderFlight_ID" />
+            <PropertyRef Name="Passanger_Info_ID" />
+            <PropertyRef Name="Flight_Info_ID" />
+          </Key>
+          <Property Name="OrderFlight_ID" Type="Guid" Nullable="false" />
+          <Property Name="Passanger_Info_ID" Type="Guid" Nullable="false" />
+          <Property Name="Flight_Info_ID" Type="Guid" Nullable="false" />
+          <Property Name="DateTimeOrder" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Flight" Relationship="Self.FK_OrderFlight_Flight" FromRole="OrderFlight" ToRole="Flight" />
+          <NavigationProperty Name="Passanger" Relationship="Self.FK_PassangerFlight_Passanger1" FromRole="OrderFlight" ToRole="Passanger" />
+        </EntityType>
+        <EntityType Name="Passanger">
+          <Key>
+            <PropertyRef Name="Passanger_ID" />
+          </Key>
+          <Property Name="Passanger_ID" Type="Guid" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nationality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PassportID" Type="Int32" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="OrderFlight" Relationship="Self.FK_PassangerFlight_Passanger1" FromRole="Passanger" ToRole="OrderFlight" />
+        </EntityType>
+        <Association Name="FK_FlightInfo_Flight">
+          <End Role="Flight" Type="Self.Flight" Multiplicity="1" />
+          <End Role="FlightInfo" Type="Self.FlightInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flight">
+              <PropertyRef Name="Flight_ID" />
+            </Principal>
+            <Dependent Role="FlightInfo">
+              <PropertyRef Name="Flight_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderFlight_Flight">
+          <End Role="Flight" Type="Self.Flight" Multiplicity="1" />
+          <End Role="OrderFlight" Type="Self.OrderFlight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flight">
+              <PropertyRef Name="Flight_ID" />
+            </Principal>
+            <Dependent Role="OrderFlight">
+              <PropertyRef Name="Flight_Info_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PassangerFlight_Passanger1">
+          <End Role="Passanger" Type="Self.Passanger" Multiplicity="1" />
+          <End Role="OrderFlight" Type="Self.OrderFlight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Passanger">
+              <PropertyRef Name="Passanger_ID" />
+            </Principal>
+            <Dependent Role="OrderFlight">
+              <PropertyRef Name="Passanger_Info_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AeroportEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Flight" EntityType="Self.Flight" />
+          <EntitySet Name="FlightInfo" EntityType="Self.FlightInfo" />
+          <EntitySet Name="OrderFlight" EntityType="Self.OrderFlight" />
+          <EntitySet Name="Passanger" EntityType="Self.Passanger" />
+          <AssociationSet Name="FK_FlightInfo_Flight" Association="Self.FK_FlightInfo_Flight">
+            <End Role="Flight" EntitySet="Flight" />
+            <End Role="FlightInfo" EntitySet="FlightInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderFlight_Flight" Association="Self.FK_OrderFlight_Flight">
+            <End Role="Flight" EntitySet="Flight" />
+            <End Role="OrderFlight" EntitySet="OrderFlight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PassangerFlight_Passanger1" Association="Self.FK_PassangerFlight_Passanger1">
+            <End Role="Passanger" EntitySet="Passanger" />
+            <End Role="OrderFlight" EntitySet="OrderFlight" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AeroportModelStoreContainer" CdmEntityContainer="AeroportEntities">
+          <EntitySetMapping Name="Flight">
+            <EntityTypeMapping TypeName="AeroportModel.Flight">
+              <MappingFragment StoreEntitySet="Flight">
+                <ScalarProperty Name="Flight_ID" ColumnName="Flight_ID" />
+                <ScalarProperty Name="FlightNumber" ColumnName="FlightNumber" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="Departure_DateTime" ColumnName="Departure_DateTime" />
+                <ScalarProperty Name="Arrival_DateTime" ColumnName="Arrival_DateTime" />
+                <ScalarProperty Name="Airline" ColumnName="Airline" />
+                <ScalarProperty Name="Terminal" ColumnName="Terminal" />
+                <ScalarProperty Name="ClassSeats" ColumnName="ClassSeats" />
+                <ScalarProperty Name="Gate" ColumnName="Gate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FlightInfo">
+            <EntityTypeMapping TypeName="AeroportModel.FlightInfo">
+              <MappingFragment StoreEntitySet="FlightInfo">
+                <ScalarProperty Name="Flight_Info_ID" ColumnName="Flight_Info_ID" />
+                <ScalarProperty Name="Flight_ID" ColumnName="Flight_ID" />
+                <ScalarProperty Name="Way" ColumnName="Way" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderFlight">
+            <EntityTypeMapping TypeName="AeroportModel.OrderFlight">
+              <MappingFragment StoreEntitySet="OrderFlight">
+                <ScalarProperty Name="OrderFlight_ID" ColumnName="OrderFlight_ID" />
+                <ScalarProperty Name="Passanger_Info_ID" ColumnName="Passanger_Info_ID" />
+                <ScalarProperty Name="Flight_Info_ID" ColumnName="Flight_Info_ID" />
+                <ScalarProperty Name="DateTimeOrder" ColumnName="DateTimeOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Passanger">
+            <EntityTypeMapping TypeName="AeroportModel.Passanger">
+              <MappingFragment StoreEntitySet="Passanger">
+                <ScalarProperty Name="Passanger_ID" ColumnName="Passanger_ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="PassportID" ColumnName="PassportID" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,42 @@
+﻿@model MyAirportMVC.Models.OrderFlight
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OrderFlight</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateTimeOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateTimeOrder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Flight.FlightNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Flight.FlightNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Passanger.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Passanger.FirstName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

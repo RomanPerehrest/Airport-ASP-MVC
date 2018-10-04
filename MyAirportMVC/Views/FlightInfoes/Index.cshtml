@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MyAirportMVC.Models.FlightInfo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Way)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Flight.FlightNumber)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Way)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Flight.FlightNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Flight_Info_ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Flight_Info_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Flight_Info_ID })
+
+            <button type="button" onclick="location.href='@Url.Action("Index", "Passangers")'">Buy</button>
+        </td>
+    </tr>
+}
+
+</table>
+
+<button type="button" onclick="location.href='@Url.Action("Index", "Flights")'">Back</button>

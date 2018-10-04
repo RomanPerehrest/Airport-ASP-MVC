@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AeroportModelStoreContainer" CdmEntityContainer="AeroportEntities">
+    <EntitySetMapping Name="Flight">
+      <EntityTypeMapping TypeName="AeroportModel.Flight">
+        <MappingFragment StoreEntitySet="Flight">
+          <ScalarProperty Name="Flight_ID" ColumnName="Flight_ID" />
+          <ScalarProperty Name="FlightNumber" ColumnName="FlightNumber" />
+          <ScalarProperty Name="Destination" ColumnName="Destination" />
+          <ScalarProperty Name="Departure_DateTime" ColumnName="Departure_DateTime" />
+          <ScalarProperty Name="Arrival_DateTime" ColumnName="Arrival_DateTime" />
+          <ScalarProperty Name="Airline" ColumnName="Airline" />
+          <ScalarProperty Name="Terminal" ColumnName="Terminal" />
+          <ScalarProperty Name="ClassSeats" ColumnName="ClassSeats" />
+          <ScalarProperty Name="Gate" ColumnName="Gate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FlightInfo">
+      <EntityTypeMapping TypeName="AeroportModel.FlightInfo">
+        <MappingFragment StoreEntitySet="FlightInfo">
+          <ScalarProperty Name="Flight_Info_ID" ColumnName="Flight_Info_ID" />
+          <ScalarProperty Name="Flight_ID" ColumnName="Flight_ID" />
+          <ScalarProperty Name="Way" ColumnName="Way" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderFlight">
+      <EntityTypeMapping TypeName="AeroportModel.OrderFlight">
+        <MappingFragment StoreEntitySet="OrderFlight">
+          <ScalarProperty Name="OrderFlight_ID" ColumnName="OrderFlight_ID" />
+          <ScalarProperty Name="Passanger_Info_ID" ColumnName="Passanger_Info_ID" />
+          <ScalarProperty Name="Flight_Info_ID" ColumnName="Flight_Info_ID" />
+          <ScalarProperty Name="DateTimeOrder" ColumnName="DateTimeOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Passanger">
+      <EntityTypeMapping TypeName="AeroportModel.Passanger">
+        <MappingFragment StoreEntitySet="Passanger">
+          <ScalarProperty Name="Passanger_ID" ColumnName="Passanger_ID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+          <ScalarProperty Name="PassportID" ColumnName="PassportID" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

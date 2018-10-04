@@ -1,0 +1,101 @@
+﻿@model IEnumerable<MyAirportMVC.Models.OrderFlight>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTimeOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Passanger.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Passanger.LastName)
+        </th>
+
+
+        <th>
+            @Html.DisplayNameFor(model => model.Flight.FlightNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Flight.Destination)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Flight.Arrival_DateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Flight.Departure_DateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Flight.Airline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Flight.Terminal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Flight.ClassSeats)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Flight.Gate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTimeOrder)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Passanger.FirstName))
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Passanger.LastName)
+        </td>
+
+
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Flight.FlightNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Flight.Destination)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Flight.Departure_DateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Flight.Arrival_DateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Flight.Airline)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Flight.Terminal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Flight.ClassSeats)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Flight.Gate)
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.OrderFlight_ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.OrderFlight_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.OrderFlight_ID })
+
+            <button type="button" onclick="location.href='@Url.Action("Index", "Flights")'">Back</button>
+        </td>
+    </tr>
+}
+
+</table>

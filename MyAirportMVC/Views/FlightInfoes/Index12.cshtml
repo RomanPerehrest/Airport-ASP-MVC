@@ -1,0 +1,20 @@
+﻿@using MyAirportMVC.Models
+@model List<FlightInfo>
+<table class="table">
+    <thead>
+    <tr>
+        <td>Way</td>
+        <td>Price</td>
+    </tr>    
+    </thead>
+    @foreach (FlightInfo i in Model)
+    {
+        <tr>
+
+            <th> <p>@i.Way</p> </th>
+            <th> <p>@i.Price</p> </th>
+        </tr>
+    }
+</table>
+
+<button type="button" onclick="location.href='@Url.Action("Index", "Passangers")'">Buy</button>
